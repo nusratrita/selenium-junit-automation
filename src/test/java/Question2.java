@@ -19,16 +19,20 @@ public class Question2 {
 
     @BeforeAll
     void setup() throws Exception {
-        // Minimize all windows first
-        new ProcessBuilder("powershell", "-command",
-                "(New-Object -ComObject Shell.Application).MinimizeAll()")
-                .start().waitFor();
-        Thread.sleep(1000);
-
-        // Now open Chrome - it will be the only visible window
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        bringBrowserToFront();
+    }
+
+    private void bringBrowserToFront() {
+        try {
+            String ps1Path = System.getProperty("user.dir") + "\\src\\test\\resources\\bring_to_front.ps1";
+            Process proc = new ProcessBuilder(
+                "powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ps1Path
+            ).start();
+            proc.waitFor(3, java.util.concurrent.TimeUnit.SECONDS);
+        } catch (Exception ignored) {}
     }
 
     // Browser stays open after test completes for recording

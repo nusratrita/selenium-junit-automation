@@ -9,9 +9,12 @@ build/
 
 # IDE
 .idea/
+*.iml
+.vscode/
 
 # Logs
 logs/
+*.log
 
 # OS files
 .DS_Store
@@ -19,3 +22,10 @@ Thumbs.db
 
 # Generated data
 dse_table_data.txt
+
+# Local config / secrets (commit only the .example template)
+src/test/resources/config.properties
+!src/test/resources/config.properties.example
+
+# Screenshots captured during runs (commit only the curated report shots under docs/)
+screenshots/question3/*.png
